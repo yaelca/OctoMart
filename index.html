@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OctoMart Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f8;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #5a4fcf;
+      text-align: center;
+    }
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+    input[type="text"] {
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      background-color: #5a4fcf;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .response {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to OctoMart 🐙</h1>
+  <p>Just tell us what you're looking for. No filters, no clutter. Try typing something like:</p>
+  <ul>
+    <li><em>"Lavender body lotion"</em></li>
+    <li><em>"That shampoo I liked last time"</em></li>
+    <li><em>"Face oil under $20"</em></li>
+  </ul>
+
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="What are you looking for today?" />
+    <button onclick="handleSearch()">Search</button>
+  </div>
+
+  <div class="response" id="response"></div>
+
+  <script>
+    function handleSearch() {
+      const input = document.getElementById('userInput').value.toLowerCase();
+      const responseBox = document.getElementById('response');
+      let response = "";
+
+      if (input.includes("lavender")) {
+        response = "Here's a calming lavender body lotion from OctoOrganics — $18. Ready to check out?";
+      } else if (input.includes("shampoo")) {
+        response = "Got it. Recommending the gentle herbal shampoo you bought last time — $12.";
+      } else if (input.includes("face oil")) {
+        response = "We found a top-rated face oil for $19.95. Add to cart?";
+      } else {
+        response = "Hmm, not sure I recognize that yet — but I'm learning fast! Try rephrasing?";
+      }
+
+      responseBox.innerText = response;
+    }
+  </script>
+</body>
+</html>
