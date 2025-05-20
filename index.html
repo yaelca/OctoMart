@@ -38,19 +38,22 @@
       font-size: 1rem;
     }
     .add-to-cart {
-      margin-top: 1rem;
-      padding: 0.6rem 1rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
       background-color: #4caf50;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
     .cart-message {
       margin-top: 1rem;
       color: #4caf50;
       font-weight: bold;
+    }
+    .product {
+      margin-bottom: 1.5rem;
     }
   </style>
 </head>
@@ -82,23 +85,33 @@
       const responseBox = document.getElementById('response');
       const cartMessage = document.getElementById('cartMessage');
       let response = "";
-      let cartItem = "";
 
       if (input.includes("lavender")) {
-        response = "Here's a calming lavender body lotion from OctoOrganics — $18.";
-        cartItem = "Lavender Body Lotion";
+        const products = [
+          { name: "Lavender Body Lotion - Soothing Blend", price: "$18" },
+          { name: "Lavender + Aloe Body Cream", price: "$16" },
+          { name: "Fast-Absorb Lavender Moisturizer", price: "$19" }
+        ];
+        response = products.map(p => `
+          <div class="product">
+            <strong>${p.name}</strong> — ${p.price}<br>
+            <button class='add-to-cart' onclick='addToCart("${p.name}")'>Add to Cart</button>
+          </div>
+        `).join('');
       } else if (input.includes("shampoo")) {
-        response = "Got it. Recommending the gentle herbal shampoo you bought last time — $12.";
-        cartItem = "Herbal Shampoo";
+        response = `
+          <div class="product">
+            <strong>Herbal Shampoo</strong> — $12<br>
+            <button class='add-to-cart' onclick='addToCart("Herbal Shampoo")'>Add to Cart</button>
+          </div>`;
       } else if (input.includes("face oil")) {
-        response = "We found a top-rated face oil for $19.95. Add to cart?";
-        cartItem = "Face Oil";
+        response = `
+          <div class="product">
+            <strong>Top-rated Face Oil</strong> — $19.95<br>
+            <button class='add-to-cart' onclick='addToCart("Face Oil")'>Add to Cart</button>
+          </div>`;
       } else {
         response = "Hmm, not sure I recognize that yet — but I'm learning fast! Try rephrasing?";
-      }
-
-      if (cartItem !== "") {
-        response += `<br><button class='add-to-cart' onclick='addToCart("${cartItem}")'>Add to Cart</button>`;
       }
 
       responseBox.innerHTML = response;
