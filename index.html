@@ -29,15 +29,6 @@
       border-radius: 8px;
       margin-bottom: 1rem;
     }
-    button {
-      padding: 0.8rem;
-      font-size: 1rem;
-      background-color: #5a4fcf;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
     .response {
       margin-top: 2rem;
       padding: 1rem;
@@ -45,6 +36,21 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 1rem;
+    }
+    .add-to-cart {
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .cart-message {
+      margin-top: 1rem;
+      color: #4caf50;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -58,29 +64,50 @@
   </ul>
 
   <div class="input-container">
-    <input type="text" id="userInput" placeholder="What are you looking for today?" />
-    <button onclick="handleSearch()">Search</button>
+    <input type="text" id="userInput" placeholder="What are you looking for today?" onkeypress="handleKeyPress(event)" />
   </div>
 
   <div class="response" id="response"></div>
+  <div class="cart-message" id="cartMessage"></div>
 
   <script>
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        handleSearch();
+      }
+    }
+
     function handleSearch() {
       const input = document.getElementById('userInput').value.toLowerCase();
       const responseBox = document.getElementById('response');
+      const cartMessage = document.getElementById('cartMessage');
       let response = "";
+      let cartItem = "";
 
       if (input.includes("lavender")) {
-        response = "Here's a calming lavender body lotion from OctoOrganics — $18. Ready to check out?";
+        response = "Here's a calming lavender body lotion from OctoOrganics — $18.";
+        cartItem = "Lavender Body Lotion";
       } else if (input.includes("shampoo")) {
         response = "Got it. Recommending the gentle herbal shampoo you bought last time — $12.";
+        cartItem = "Herbal Shampoo";
       } else if (input.includes("face oil")) {
         response = "We found a top-rated face oil for $19.95. Add to cart?";
+        cartItem = "Face Oil";
       } else {
         response = "Hmm, not sure I recognize that yet — but I'm learning fast! Try rephrasing?";
       }
 
-      responseBox.innerText = response;
+      if (cartItem !== "") {
+        response += `<br><button class='add-to-cart' onclick='addToCart("${cartItem}")'>Add to Cart</button>`;
+      }
+
+      responseBox.innerHTML = response;
+      cartMessage.innerText = "";
+    }
+
+    function addToCart(item) {
+      const cartMessage = document.getElementById('cartMessage');
+      cartMessage.innerText = `${item} added to cart 🛒`;
     }
   </script>
 </body>
