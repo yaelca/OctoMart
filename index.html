@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +91,8 @@
           { name: "Lavender + Aloe Body Cream", price: "$16" },
           { name: "Fast-Absorb Lavender Moisturizer", price: "$19" }
         ];
-        response = products.map(p => `
+        response = "<strong>Here are the top 3 lavender body lotions we found:</strong><br><br>";
+        response += products.map(p => `
           <div class="product">
             <strong>${p.name}</strong> — ${p.price}<br>
             <button class='add-to-cart' onclick='addToCart("${p.name}")'>Add to Cart</button>
@@ -100,12 +100,14 @@
         `).join('');
       } else if (input.includes("shampoo")) {
         response = `
+          <strong>Here’s a gentle shampoo we think you'll like:</strong><br><br>
           <div class="product">
             <strong>Herbal Shampoo</strong> — $12<br>
             <button class='add-to-cart' onclick='addToCart("Herbal Shampoo")'>Add to Cart</button>
           </div>`;
       } else if (input.includes("face oil")) {
         response = `
+          <strong>We found a top-rated face oil under $20:</strong><br><br>
           <div class="product">
             <strong>Top-rated Face Oil</strong> — $19.95<br>
             <button class='add-to-cart' onclick='addToCart("Face Oil")'>Add to Cart</button>
